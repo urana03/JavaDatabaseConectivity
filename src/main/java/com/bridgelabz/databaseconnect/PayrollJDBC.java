@@ -3,6 +3,7 @@ package com.bridgelabz.databaseconnect;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Enumeration;
@@ -18,11 +19,15 @@ public class PayrollJDBC {
 	public static void main(String args[]) throws SQLException {
 
 		Connection connection = DriverManager.getConnection(jdbcURL, userName, password);
-		         Statement state = connection.createStatement();
 		        try{		      
-		        	String sql = "UPDATE employee_payroll SET salary = 3000000 WHERE id = 2";
-		                 state.executeUpdate(sql);
-		                 ResultSet result = state.executeQuery(query);
+		        	String sqlUpdate = "UPDATE employee_payroll  SET salary = ? WHERE id = ?";
+		        	PreparedStatement pstmt = connection.prepareStatement(sqlUpdate);
+		                 double salary = 4000000;
+		                 int id = 2;
+		                 pstmt.setDouble(1,salary);
+		                 pstmt.setInt(2,id);
+		                 pstmt.executeUpdate();
+		                 ResultSet result = pstmt.executeQuery(query);
 		        	
 		         while(result.next()){
 		            //Display values
