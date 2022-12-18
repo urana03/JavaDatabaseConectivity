@@ -19,8 +19,11 @@ public class PayrollJDBC {
 
 		Connection connection = DriverManager.getConnection(jdbcURL, userName, password);
 		         Statement state = connection.createStatement();
-		         ResultSet result = state.executeQuery(query);
-				try{		      
+		        try{		      
+		        	String sql = "UPDATE employee_payroll SET salary = 3000000 WHERE id = 2";
+		                 state.executeUpdate(sql);
+		                 ResultSet result = state.executeQuery(query);
+		        	
 		         while(result.next()){
 		            //Display values
 		            System.out.print("ID: " + result.getInt("id"));
